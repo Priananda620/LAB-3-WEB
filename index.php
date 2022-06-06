@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,154 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Tutor | Priananda </title>
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
-    <script src='js/main.js'></script>
+    <?php include("component/headLinks.php") ?>
 </head>
 
+
 <body>
-    <div id="overlay-outter" class="d-flex position-fixed align-items-start">
-        <div id="overlay-wrapper">
 
-            <div id="xmark-button">
-                <button class="float-end"><i class="fa-solid fa-xmark"></i></button>
-            </div>
+    <?php include("component/overlayLoginRegister.php") ?>
 
-
-            <div id="login-body">
-                <h2>Login to Your Account</h2>
-                <form method="POST" enctype="multipart/form-data" class="d-flex flex-column">
-                    <label for="email">email&nbsp;<span style="color: red;">*&nbsp;&nbsp;</span></label>
-                    <input type="email" name="email" class="form-input" required="">
-                    <label for="password">password&nbsp;<span style="color: red;">*&nbsp;&nbsp;</span><span class="show-password float-end">show &nbsp;<i class="fas fa-eye"></i></span></label>
-                    <input type="password" name="password" class="form-input" required="">
-
-
-                    <div>
-                        <input style="width: fit-content" id="form-remember-me" type="checkbox" name="remember" class="form-input" required="">
-                        <label for="form-remember-me">remember me&nbsp;</label>
-                    </div>
-                    
-                    
-                    
-
-                    <p id="SUCCESS-login" class="mt-4" style="display: none; color: var(--success-font)" >SUCCESS LOGIN</p>
-                    <p id="email_not_registered" class="mt-4" style="display: none; color: var(--fail-font)">Email Not Registered...</p>
-                    <p id="wrong_password" class="mt-4" style="display: none; color: var(--fail-font)">Incorrect Password...</p>
-                    <p id="no-data" class="mt-4" style="display: none; color: var(--fail-font)">Input Must Be Filled</p>
-
-                    <div class="d-inline-flex align-items-center justify-content-between mt-4">
-                        <button class="button me-2" id="login-action" style="width: 50%;">Login&nbsp;&nbsp;<div class="fa-2x"><i class="fas fa-circle-notch fa-spin"></i></div></button>
-                        <button class="button clear-input-action" style="width: 50%; background: var(--red-accent)">Clear Inputs</button>
-                    </div>
-                    <p id="" class="mt-4">Do not have account yet? | <span class="register-show" style="color:var(--link-font); cursor:pointer">Register</span> </p>
-                </form>
-            </div>
-            <div id="register-body">
-                <h2>Register</h2>
-                <form enctype="multipart/form-data" class="d-flex flex-column">
-
-
-
-                    <label for="email">email<span style="color: red;">&nbsp;*&nbsp;&nbsp;&nbsp;</span></label>
-                    <input type="email" name="email" class="form-input" required="">
-
-                    <label for="username">username<span style="color: red;">&nbsp;*&nbsp;&nbsp;&nbsp;</span></label>
-                    <input type="text" name="username" class="form-input" required="">
-
-                    <label for="phone">phone<span style="color: red;">&nbsp;*&nbsp;&nbsp;&nbsp;</span></label>
-                    <input type="text" name="phone" class="form-input" required="">
-
-                    <label for="address">address<span style="color: red;">&nbsp;*&nbsp;&nbsp;&nbsp;</span></label>
-                    <textarea name="address" class="form-input" required="" rows="6" cols="50"></textarea>
-
-
-                    <label for="user_image64">profile picture &nbsp;<span style="color: red;">&nbsp;*&nbsp;&nbsp;&nbsp;</span></label>
-                    <input type="file" name="user_image64" placeholder="photo" required="">
-
-                    <label for="password">password<span style="color: red;">&nbsp;*&nbsp;&nbsp;&nbsp;</span><span class="message"></span><span class="show-password float-end">show &nbsp;<i class="fas fa-eye"></i></span></label>
-                    <input type="password" name="password" class="form-input" required="">
-
-                    <label for="verify_pass">re-type password<span style="color: red;">&nbsp;*&nbsp;&nbsp;&nbsp;</span></label>
-                    <input type="password" name="verify_pass" class="form-input" required="">
-
-
-                    <p id="SUCCESS-regis" class="mt-4" style="display: none; color: var(--success-font)">SUCCESS REGISTER</p>
-                    <p id="username-already-exist" class="mt-4" style="display: none; color: var(--fail-font)">Username Already Exist...</p>
-                    <p id="unmatch-password" class="mt-4" style="display: none; color: var(--fail-font)">Password Does Not Match...</p>
-                    <p id="no-data" class="mt-4" style="display: none; color: var(--fail-font)">Input Must Be Filled</p>
-                    <p id="unmatch-pass-length" class="mt-4" style="display: none; color: var(--fail-font)">Password Too Short...</p>
-
-                    <div class="d-inline-flex align-items-center flex-wrap mt-4">
-
-
-                        <div class="d-inline-flex align-items-center justify-content-between">
-                            <button class="button me-2" id="register-action" style="width: 50%;">Register&nbsp;&nbsp;<div class="fa-2x"><i class="fas fa-circle-notch fa-spin"></i></div></button>
-                            <button class="button clear-input-action me-2" style="width: 50%; background: var(--red-accent)">Clear Inputs</button>
-                        </div>
-                        <div>
-                            <p>already have account?</p>
-                            <p class="login-show" style="color:var(--link-font); cursor:pointer">Log In</p>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-
-
-        </div>
-    </div>
     <div id="full-page-container">
-        <header class="d-flex align-items-center justify-content-between">
-            <div id="header-inner-left">
-                <div class="logo">
-                    <a href="#">
-                        <h1 class="fw-bold d-flex align-items-center"><span><img src="assets/logo/logo48.png"></span>My Tutor</h1>
-                    </a>
-                </div>
-            </div>
 
-            <?php
-                if(isset($_SESSION['sessionId'])){
-            ?>
-            <div id="header-nav">
-                <ul class="d-inline-flex">
-                    <li><a href="#view-subjects">courses</a></li>
-                    <li><a>tutors</a></li>
-                    <li><a>subscription</a></li>
-                    <li><a>profile</a></li>
-                </ul>
-            </div>
+        <?php include("component/headerFixed.php") ?>
 
-            <div class="user-avatar-rounded me-2" style="background-image:url('assets/user_images/<?php echo $_SESSION['user_data']['username']."_".$_SESSION['user_data']['user_image']?>')"></div>
-            <?php
-                }else{
-            ?>
-
-            <div id="header-nav" class="d-inline-flex align-items-center">
-                <p class="mb-0 me-2">Login To View The Nav Menus</p>
-                <a class="button me-2 login-show">Login</a>
-            </div>
-
-            <?php } ?>
-            <div id="header-inner-right">
-                <div class="dark-switch">
-                    <input id="dark-switch-input" type="checkbox" checked="">
-                    <label for="dark-switch-input"></label>
-                </div>
-            </div>
-        </header>
         <section id="hero" class="pb-0">
             <svg width="722" height="320" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -221,19 +85,19 @@
                         Hello there — <span class="fw-bold">My Tutor</span> by <span class="fw-bold">Priananda</span> is a fully featured web and app platform for finding your right tutor. Browse thousands of tutor and start expanding your knowledge to the higest.
                     </p>
                     <?php
-                        if(!isset($_SESSION['sessionId'])){
+                    if (!isset($_SESSION['sessionId'])) {
                     ?>
-                    <div id="hero-buttons-wrap" class="d-inline-flex mt-3">
-                        <a class="button me-2 login-show">Login</a>
-                        <a class="button register-show">Register</a>
-                    </div>
+                        <div id="hero-buttons-wrap" class="d-inline-flex mt-3">
+                            <a class="button me-2 login-show">Login</a>
+                            <a class="button register-show">Register</a>
+                        </div>
                     <?php
-                        }else{
+                    } else {
                     ?>
-                    <div id="hero-buttons-wrap" class="d-inline-flex mt-3">
-                    <a href="#view-subjects" class="button me-2">View Subjects</a>
-                        <a class="button me-2 logout-action" href="api/logout.php">Logout</a>
-                    </div>
+                        <div id="hero-buttons-wrap" class="d-inline-flex mt-3">
+                            <a href="#view-subjects" class="button me-2">View Subjects</a>
+                            <a class="button me-2 logout-action" href="api/logout.php">Logout</a>
+                        </div>
                     <?php } ?>
                 </div>
 
@@ -249,61 +113,61 @@
         </section>
 
         <?php
-            require_once 'api/db_config.php';
-            $sqlcnt = new mysqli($db_host,$db_username,$db_password,$db_name);
+        require_once 'api/db_config.php';
+        $sqlcnt = new mysqli($db_host, $db_username, $db_password, $db_name);
 
 
-            
 
-            $view = 10;
-            if (isset ($_GET['page'])){
-                $active_page = $_GET['page'];
-            }  else {
-                $active_page = 1;
-            }
-            $start = ($active_page-1)*$view;
-            $limit = " LIMIT $start, $view";
 
-            $sql = "SELECT * FROM tbl_subjects";
+        $view = 10;
+        if (isset($_GET['page'])) {
+            $active_page = $_GET['page'];
+        } else {
+            $active_page = 1;
+        }
+        $start = ($active_page - 1) * $view;
+        $limit = " LIMIT $start, $view";
 
-            $query = $sqlcnt->query($sql.$limit);
-            $row = $query->fetch_assoc();
+        $sql = "SELECT * FROM tbl_subjects";
+
+        $query = $sqlcnt->query($sql . $limit);
+        $row = $query->fetch_assoc();
         ?>
 
         <section class="pt-5">
             <div id="subjects-flex-wrapper">
                 <?php
-                    do{
+                do {
                 ?>
-                <div class="subject-item">
-                    <div>
-                        <h3><?php echo $row['subject_name']?></h3>
-                        
-                        <p><?php echo $row['subject_description']?></p>
+                    <div class="subject-item">
+                        <div>
+                            <h3><?php echo $row['subject_name'] ?></h3>
 
-                        <div class="d-flex flex-row">
-                            <div class="subject-tiny-rounded">RM<?php echo $row['subject_price']?></div>
-                            <div class="subject-tiny-rounded"><?php echo $row['subject_sessions']?> sessions</div>
-                            <div class="subject-tiny-rounded"><?php echo $row['subject_rating']?> <i class="fa-solid fa-star"></i></div>
+                            <p><?php echo $row['subject_description'] ?></p>
+
+                            <div class="d-flex flex-row">
+                                <div class="subject-tiny-rounded">RM<?php echo $row['subject_price'] ?></div>
+                                <div class="subject-tiny-rounded"><?php echo $row['subject_sessions'] ?> sessions</div>
+                                <div class="subject-tiny-rounded"><?php echo $row['subject_rating'] ?> <i class="fa-solid fa-star"></i></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="subject-image">
-                        <div style="background-image:url('assets/courses/<?php echo $row['subject_id']?>.png')"></div>
-                    </div>
-                    
-                </div>
-                <?php
-                    }while($row = $query->fetch_assoc());
+                        <div class="subject-image">
+                            <div style="background-image:url('assets/courses/<?php echo $row['subject_id'] ?>.png')"></div>
+                        </div>
 
-                    $sqltotal = $sql;
-                    $qtotal = $sqlcnt->query($sqltotal);
-                    $total_data = $qtotal->num_rows;
-                    // echo "<h1>".$total_data."</h1>";
-                    $total_page = ceil($total_data/$view);
+                    </div>
+                <?php
+                } while ($row = $query->fetch_assoc());
+
+                $sqltotal = $sql;
+                $qtotal = $sqlcnt->query($sqltotal);
+                $total_data = $qtotal->num_rows;
+                // echo "<h1>".$total_data."</h1>";
+                $total_page = ceil($total_data / $view);
                 ?>
-                
-                
-                
+
+
+
             </div>
             <div class="page-selector-wrapper d-flex">
                 <ul class="d-inline-flex">
@@ -331,10 +195,10 @@
                                 echo "?";
                             }
                             ?>
-							page=<?php echo $i."#view-subjects"; ?>">
-                                    
-                                        <?php echo $i; ?>
-                                    
+							page=<?php echo $i . "#view-subjects"; ?>">
+
+                                    <?php echo $i; ?>
+
                                 </a>
                             </li>
                         <?php } ?>
@@ -368,46 +232,7 @@
         </section>
 
 
-        <footer class="p-5">
-            <div style="border-bottom: 1px solid var(--display-font-color-2nd);" class="logo mb-4 pb-3">
-                <a href="#">
-                    <h1 class="fw-bold d-flex align-items-center"><span><img src="assets/logo/logo48.png"></span>My Tutor by Priananda</h1>
-                </a>
-            </div>
-            <div class="d-flex justify-content-between">
-                <div style="width: 22em;">
-                    <p>All contents, website design and codes are made fully by me (except <span class="fw-bold">fontAwesome icons</span> and svg flat illustrations are from <span class="fw-bold">unDraw</span>). Using JQUERY, AJAX, native JS, self CSS, Bootstrap CSS framework, FontAwesome icons, unDraw svg illustrations.</p>
-                </div>
-                <div style="margin-left: auto;">
-                    <p style="margin-bottom: 1em; text-align: center;">Visit My Other Creation</p>
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <a href="https://mindspaze.000webhostapp.com/" target="_blank" rel="noopener noreferrer">
-                            <i>
-                                <svg width="2em" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" id="blobSvg">
-                                    <path id="blob" d="M441,276Q411,302,393,321.5Q375,341,335,326.5Q295,312,301.5,370Q308,428,279,427Q250,426,224,417.5Q198,409,187,380Q176,351,120.5,368Q65,385,67.5,346.5Q70,308,42.5,279Q15,250,62,227Q109,204,104.5,172.5Q100,141,141.5,149.5Q183,158,188.5,117.5Q194,77,222,94Q250,111,281.5,83Q313,55,339.5,72.5Q366,90,359.5,132.5Q353,175,352.5,196Q352,217,411.5,233.5Q471,250,441,276Z" fill="#fb8332"></path>
-                                </svg>
-                            </i>
-                        </a>
-
-                    </div>
-                </div>
-                <div style="margin: 0 3em;">
-                    <p style="margin-bottom: 1em; text-align: center;">Follow Me On</p>
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <a href="https://www.linkedin.com/in/priananda-azhar/" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-linkedin" style="color: #0077b5"></i>
-                        </a>
-                        <a href="https://github.com/Priananda620/" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github mx-2" style="color: blue"></i>
-                        </a>
-                        <a href="https://www.instagram.com/azhar620/" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-instagram" style="color: rgb(255, 72, 0)"></i>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <?php include("component/footer.php") ?>
     </div>
 </body>
 

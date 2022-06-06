@@ -684,7 +684,7 @@ body.overlay-active #full-page-container {
     background: var(--red-accent);
     border-radius: 1em;
     box-shadow: 0.3rem 0.3rem 0.6rem rgba(201, 10, 102, 0.279), -0.2rem -0.2rem 0.5rem rgba(220, 7, 43, 0.132);
-    padding: .5em;
+    padding: .6em;
 }
 
 .subject-tiny-rounded:not(:last-child) {
