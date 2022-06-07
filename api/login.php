@@ -65,7 +65,7 @@ if(empty($email) || empty($password) || $connect->connect_error){
             unset($cookieData['hashPass']);
 
             //for remember me
-            setcookie ("user_login", json_encode($cookieData), time() + (86400 * 30));
+            setcookie ("user_login", json_encode($cookieData), time() + (86400 * 30), "/");
 
         } else {
             if(isset($_COOKIE["user_login"])) {

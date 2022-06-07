@@ -5,7 +5,7 @@ function clearMsgOutput() {
     $('#no-data').css('display', 'none')
     $('#unmatch-pass-length').css('display', 'none')
     $('button#register-action .fa-2x').css('display', 'none')
-    
+
     $('#wrong_password').css('display', 'none')
     $('#email_not_registered').css('display', 'none')
 
@@ -13,10 +13,37 @@ function clearMsgOutput() {
     $('#SUCCESS-regis').css('display', 'none')
 }
 
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function loginRememberMeCookie() {
+    let json = getCookie("user_login")
+
+    if(json!=null){
+        $("#login-body input[name='email']").val(json.email)
+    }
+}
+
 
 
 $(document).ready(() => {
     var r = document.querySelector(':root');
+
+    loginRememberMeCookie()
+    // console.log("sdsaasd");
 
 
     const heroTextDouble = document.querySelectorAll(".hero-text-double")
@@ -60,6 +87,8 @@ $(document).ready(() => {
 
         // document.querySelector('input #dark-switch-input').checked = !toggler
     })
+
+
 
     $(".login-show").on('click', (e) => {
         e.preventDefault()
@@ -222,7 +251,7 @@ $(document).ready(() => {
                         $('#SUCCESS-login').css('display', 'unset')
                         // location.reload();
                     } else if (!json.success && json.no_data) {
-                        
+
                         console.log(json.success);
                         console.log("no_data:")
                         console.log(json.no_data)
@@ -232,7 +261,7 @@ $(document).ready(() => {
                         console.log(json.success);
                         console.log("email_not_registered:")
                         console.log(json.email_not_registered)
-                        
+
                         $('#email_not_registered').css('display', 'unset')
                     } else if (!json.success && json.wrong_password) {
                         console.log(json.success);
@@ -242,7 +271,7 @@ $(document).ready(() => {
                     }
                 }
             })
-  
+
 
         } else {
             $('#no-data').css('display', 'unset')

@@ -10,9 +10,9 @@ session_start();
 
 
 session_destroy();
-if(isset($_COOKIE["user_login"])) {
-    setcookie ("user_login","");
-}
+// if(isset($_COOKIE["user_login"])) {
+//     setcookie ("user_login","");
+// }
 
 header("location:../index.php");
 

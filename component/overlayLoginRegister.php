@@ -10,7 +10,12 @@
             <h2>Login to Your Account</h2>
             <form method="POST" enctype="multipart/form-data" class="d-flex flex-column">
                 <label for="email">email&nbsp;<span style="color: red;">*&nbsp;&nbsp;</span></label>
-                <input type="email" name="email" class="form-input" required="">
+                <input type="email" name="email" class="form-input" required="" value="<?php 
+                if(isset($_COOKIE["user_login"])) {
+                    $json =  json_decode($_COOKIE["user_login"]);
+                    echo $json->email;
+                }
+                ?>">
                 <label for="password">password&nbsp;<span style="color: red;">*&nbsp;&nbsp;</span><span class="show-password float-end">show &nbsp;<i class="fas fa-eye"></i></span></label>
                 <input type="password" name="password" class="form-input" required="">
 
