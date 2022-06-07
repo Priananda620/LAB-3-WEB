@@ -183,14 +183,6 @@
                                 echo "?search-query=";
                                 echo $_GET['search-query'];
                                 echo "&";
-                            } else if (isset($_GET['latest'])) {
-                                echo "?latest=";
-                                echo $_GET['latest'];
-                                echo "&";
-                            } else if (isset($_GET['non-answered'])) {
-                                echo "?non-answered=";
-                                echo $_GET['non-answered'];
-                                echo "&";
                             } else {
                                 echo "?";
                             }
