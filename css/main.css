@@ -95,7 +95,7 @@ ul {
 
 header {
     min-height: 5vh;
-    padding: .5em 2em;
+    padding: .7em 1.5em;
     justify-content: space-between;
     position: sticky;
     top: 0;
@@ -121,7 +121,9 @@ section {
 }
 
 .logo h1 {
-    font-size: 3em;
+    font-size: 2.5em;
+    width: 188px;
+    margin: 0;
 }
 
 .logo img {
@@ -218,7 +220,7 @@ span {
 
 
 .dark-switch {
-    width: 4em;
+    width: 3em;
     align-self: flex-end;
 }
 
@@ -251,7 +253,7 @@ span {
 
     content: "";
     position: absolute;
-    left: 0.4rem;
+    left: 4%;
     width: 1.5em;
     height: 1.5em;
     border-radius: 50%;
@@ -389,7 +391,10 @@ section.section-child .section-text {
         width: 100%;
         margin-bottom: 5em;
     }
-    
+
+    #header-nav p{
+        display: none;
+    }
 
 }
 
@@ -422,11 +427,11 @@ section.section-child .section-text {
         column-gap: 40px;
     }
 
-    #subjects-flex-wrapper{
+    #subjects-flex-wrapper {
         grid-template-columns: auto !important;
     }
 
-    .subject-item{
+    .subject-item {
         margin: .4em 0 !important;
     }
 
@@ -575,7 +580,8 @@ form textarea {
 }
 
 form input,
-form textarea {
+form textarea,
+form input {
     margin-top: 1em;
     color: var(--display-font-color);
     border: 0;
@@ -583,6 +589,110 @@ form textarea {
     outline: none;
     transition: box-shadow ease-in-out .2s;
     font-size: 1.1em;
+}
+
+header form input {
+    margin: 0 !important;
+}
+
+#search-box {
+    width: auto;
+    position: relative;
+}
+
+#search-box #search-suggestion {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 26em;
+    /* height: 10em; */
+    background: var(--base-color-lifted-1);
+    padding: 1em;
+    border: 1px solid var(--display-font-color-2nd);
+    max-height: 50vh;
+    overflow-y: scroll;
+    min-height: auto;
+}
+
+#search-box #search-suggestion .search-suggestion-item {
+    padding: .5em 1em;
+    margin: .5em 0;
+    width: 24em;
+    cursor: pointer;
+}
+
+#search-box #search-suggestion .search-suggestion-item:hover {
+    background: var(--base-color);
+}
+
+#search-box #search-suggestion .search-suggestion-item>div:nth-of-type(1):not(.skeleton) {
+    width: 3em;
+    height: 3em;
+    background-size: cover;
+    background-position: center;
+}
+
+#search-box #search-suggestion h4 {
+    font-weight: 600;
+    margin: 0 1em;
+    font-size: 1.2em;
+}
+
+#search-box #search-suggestion .search-suggestion-item .skeleton {
+    background-image: linear-gradient(90deg, rgb(159, 159, 159) 0px, #e8e8e8 40px, rgb(162, 162, 162) 80px);
+    width: 3em;
+    height: 2em;
+    margin: 0 2em 0 0;
+    border-radius: 1em;
+    animation: sug-skeleton-shine 1.5s infinite ease-in-out;
+    background-size: 600px;
+}
+
+#search-box #search-suggestion .search-suggestion-item .skeleton:nth-of-type(2) {
+    width: 15em;
+    animation: sug-skeleton-shine 1.3s infinite ease-in-out;
+}
+
+#search-box #search-suggestion .skeleton-item {
+    display: none;
+}
+
+
+#search-box form input {
+    padding: .7em .8em !important;
+    border: 1px solid var(--display-font-color-2nd);
+    box-shadow: unset !important;
+    border-radius: 1px;
+}
+
+#search-box form button {
+    background: #f5bc00;
+    border: 1px solid var(--display-font-color-2nd);
+    color: grey;
+    padding: 1em;
+}
+
+@keyframes sug-skeleton-shine {
+    0% {
+        background-position: -140px;
+    }
+
+    40%,
+    100% {
+        background-position: 208px;
+    }
+}
+
+@keyframes sug-skeleton-image-shine {
+    0% {
+        background-position: -140px;
+    }
+
+    40%,
+    100% {
+        background-position: 208px;
+    }
 }
 
 form input:focus,
@@ -684,7 +794,7 @@ body.overlay-active #full-page-container {
     background: var(--red-accent);
     border-radius: 1em;
     box-shadow: 0.3rem 0.3rem 0.6rem rgba(201, 10, 102, 0.279), -0.2rem -0.2rem 0.5rem rgba(220, 7, 43, 0.132);
-    padding: .6em;
+    padding: .4em;
 }
 
 .subject-tiny-rounded:not(:last-child) {
@@ -700,13 +810,16 @@ body.overlay-active #full-page-container {
     background-color: var(--base-color-lifted-1);
     padding: 2.5em 1.5em 1.5em 1.5em;
     border-radius: 5px;
-    margin: .5em;
     cursor: pointer;
     overflow: hidden;
 }
 
 #subjects-flex-wrapper .subject-item>div p:nth-of-type(1) {
     min-height: 3em;
+}
+
+#subjects-flex-wrapper > a{
+    margin: .5em;
 }
 
 .subject-image {
@@ -766,7 +879,7 @@ body.overlay-active #full-page-container {
     background: var(--base-color-lifted-1);
 }
 
-.page-selector-wrapper ul li a{
+.page-selector-wrapper ul li a {
     color: var(--display-font-color);
     text-align: center;
     margin: 0;
@@ -774,17 +887,104 @@ body.overlay-active #full-page-container {
     background: var(--base-color-lifted-1);
 }
 
-.page-selector-wrapper ul li a:hover{
+.page-selector-wrapper ul li a:hover {
     background: var(--base-color)
 }
 
-a{
+a {
     text-decoration: none;
     transition: color .3s ease-in-out, background .1s ease-in;
     color: inherit;
 }
 
-a:hover{
+a:hover {
     color: var(--display-font-color-2nd);
 
+}
+
+.spacer-top {
+    width: 1em;
+    height: 3px;
+    background: var(--display-font-color-2nd);
+    margin-top: 0.5em;
+    margin-left: 1.3px;
+}
+
+.spacer-left {
+    width: 3px;
+    height: 2em;
+    background: var(--display-font-color-2nd);
+}
+
+#subject-details-outter{
+    width: 65%;
+margin-right: 2em;
+/* min-width: 60em;
+max-width: 70%; */
+min-width: 26em;
+}
+#subject-details-outter #subject-details-bytutor {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+#subject-details-outter .button{
+    font-size: 0.8em !important;
+padding: .5em 1em !important;
+}
+
+#subject-details-outter #subject-details-bytutor::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.675);
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+#subject-details-outter #subject-details-bytutor {
+    padding: 1em .8em;
+}
+
+#subject-details-outter #subject-details-bytutor .user-avatar-rounded {
+    border: 2px var(--red-accent) solid;
+    width: 3.5em;
+    height: 3.5em;
+}
+
+
+#subject-details-outter #subject-details-bytutor .tutor-data{
+    mix-blend-mode: hard-light;
+}
+
+
+#subject-details-outter #subject-details-bytutor .tutor-data h4,
+#subject-details-outter #subject-details-bytutor .tutor-data p {
+    margin: 0;
+    font-weight: 600;
+}
+
+#subject-details-outter p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    direction: ltr;
+    text-align: start;
+    line-height: 1.5em;
+}
+
+#subject-details-outter #subject-details-bytutor .tutor-data h4{
+    font-size: 1em;
+    overflow-wrap: unset !important;
+    word-break: unset !important;
+    direction: ltr;
+    text-align: start;
+}
+
+
+.unfocus-text{
+    color: var(--display-font-color-2nd);
 }

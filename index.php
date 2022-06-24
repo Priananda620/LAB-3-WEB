@@ -16,9 +16,9 @@
 
     <?php include("component/overlayLoginRegister.php") ?>
 
-    <div id="full-page-container">
+    <?php include("component/headerFixed.php") ?>
 
-        <?php include("component/headerFixed.php") ?>
+    <div id="full-page-container">
 
         <section id="hero" class="pb-0">
             <svg width="722" height="320" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,11 +139,12 @@
                 <?php
                 do {
                 ?>
+                <a href="subjectDetails.php?subId=<?php echo md5($row['subject_id'])?>">
                     <div class="subject-item">
                         <div>
                             <h3><?php echo $row['subject_name'] ?></h3>
 
-                            <p><?php echo $row['subject_description'] ?></p>
+                            <!-- <p><?php //echo $row['subject_description'] ?></p> -->
 
                             <div class="d-flex flex-row">
                                 <div class="subject-tiny-rounded">RM<?php echo $row['subject_price'] ?></div>
@@ -156,6 +157,7 @@
                         </div>
 
                     </div>
+                </a>
                 <?php
                 } while ($row = $query->fetch_assoc());
 

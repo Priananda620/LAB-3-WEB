@@ -31,16 +31,38 @@ function getCookie(cname) {
 
 function loginRememberMeCookie() {
     let json = getCookie("user_login")
+    if(json.length != 0){
+        const obj = JSON.parse(json)
 
-    if(json!=null){
-        $("#login-body input[name='email']").val(json.email)
+        console.log("cooksie")
+
+        $("#login-body input[name='email']").val(obj.email)
+        $("#login-body input[name='password']").val("")
+        console.log("dasdsdada")
+        console.log(json)
+        console.log(obj.email)
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function debounce(callback, delay) {
+    let timeout;
+    return function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(callback, delay);
     }
 }
 
 
 
 $(document).ready(() => {
+
     var r = document.querySelector(':root');
+    var searchSuggest
+
 
     loginRememberMeCookie()
     // console.log("sdsaasd");
@@ -252,7 +274,7 @@ $(document).ready(() => {
                         // location.reload();
                     } else if (!json.success && json.no_data) {
 
-                        console.log(json.success);
+                        console.log(json.success)
                         console.log("no_data:")
                         console.log(json.no_data)
 
@@ -267,7 +289,7 @@ $(document).ready(() => {
                         console.log(json.success);
                         console.log("wrong_password:")
                         console.log(json.wrong_password);
-                        $('#wrong_password').css('display', 'unset');
+                        $('#wrong_password').css('display', 'unset')
                     }
                 }
             })
@@ -278,5 +300,217 @@ $(document).ready(() => {
             return
         }
     })
+
+    $('#search-box form input').focus(() => {
+        $('#search-suggestion').css({ display: "unset" })
+        console.log("dsadssdaas")
+    })
+
+    var searchSuggest
+    var searchResultCount
+    var searchSuggestElement = []
+
+    $('#search-box form input').focusout(() => {
+        // $('#search-suggestion').css({ display: "none" })
+    })
+
+    // $("#search-box").on('click', (e) => {
+    //     console.log("pressed1111")
+    //     e.stopPropagation()
+    // })
+
+    // $("#search-suggestion").on('click', (e) => {
+    //     console.log("pressed2222")
+    //     e.stopPropagation()
+    // })
+
+    $("#search-suggestion").on('click', '.search-suggestion-item',(e) => {
+        let currentClicked = $(e.currentTarget).attr('subid')
+        console.log(currentClicked)
+        window.location.href = "http://127.0.0.1:8080/ContinuousProj/subjectDetails.php?subId="+currentClicked
+
+    })
+
+    
+
+    $('#search-box form input').keyup(async (e) => {
+        
+
+        $('#search-suggestion').css({ display: "unset" })
+        console.log("dsadssdaas")
+        let skeletonItems = $('#search-box #search-suggestion .skeleton-item')
+
+        $("div").not(".skeleton-item").remove(".search-suggestion-item")
+
+        if ($('#search-box form input').val().trim().length != 0) {
+
+            skeletonItems.addClass("d-inline-flex")
+
+            $('#search-suggestion > h4').html("searching. . .")
+
+            sleep(3000).then(() => {
+                let sugInput = $('#search-box form input').val().trim().replace(/\s+/g, " ")
+
+                if (sugInput.length !== 0 && (searchSuggest == "" || searchSuggest !== sugInput)) {
+                    // console.log(sugInput)
+
+                    searchSuggest = sugInput;
+                    console.log("-------" + sugInput)
+
+                    let fd = new FormData()
+                    fd.append('string', sugInput)
+
+                    searchSuggestElement = []
+
+                    $.ajax({
+                        url: 'api/searchSubjectSuggest.php',
+                        method: 'POST',
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            skeletonItems.removeClass("d-inline-flex")
+
+                            let json = response
+                            console.log(json)
+
+                            if (json.success) {
+                                console.log(json.data.length)
+
+                                if (json.data.length !== 0) {
+
+                                    $('#search-suggestion > h4').html("Search results (" + json.total_result + ")")
+
+                                    searchResultCount = json.total_result
+
+                                    for (var col in json.data) {
+                                        console.log(json.data[col].subject_name)
+
+                                        var divOutter = document.createElement("div")
+
+                                        var pMagGlass = document.createElement("p")
+                                        var iMagGlass = document.createElement("i")
+                                        var divImage = document.createElement("div")
+                                        var pSubjectName = document.createElement("p")
+
+                                        $(divOutter).attr('class', 'd-inline-flex search-suggestion-item align-items-center')
+                                        $(pMagGlass).attr('class', 'mb-0')
+                                        $(pMagGlass).attr('style', 'margin-right: 1em')
+                                        $(iMagGlass).attr('class', 'fa-solid fa-arrow-up-right-from-square')
+
+                                        $(pSubjectName).attr('class', 'mb-0 mx-2')
+
+
+
+
+                                        $(pSubjectName).html(json.data[col].subject_name)
+
+                                        $(divImage).attr('style', "background-image:url('assets/courses/" + json.data[col].subject_id + ".png')")
+
+
+                                        $(iMagGlass).appendTo(pMagGlass)
+                                        $(pMagGlass).appendTo(divOutter)
+                                        $(divImage).appendTo(divOutter)
+                                        $(pSubjectName).appendTo(divOutter)
+
+                                        searchSuggestElement[col] = divOutter
+
+                                        $(divOutter).attr('subId', md5(json.data[col].subject_id))
+
+                                        $(divOutter).appendTo("#search-suggestion")
+                                    }
+                                } else {
+                                    $("div").not(".skeleton-item").remove(".search-suggestion-item")
+
+                                    searchResultCount = 0
+
+                                    $('#search-suggestion > h4').html("Not Found")
+                                    // var divOutter = document.createElement("div")
+
+                                    // // var divImage = document.createElement("div")
+                                    // var pSubjectName = document.createElement("p")
+
+                                    // $(divOutter).attr('class', 'd-inline-flex search-suggestion-item align-items-center')
+
+
+                                    // $(pSubjectName).attr('class', 'mb-0 mx-2')
+
+                                    // $(pSubjectName).html("not found")
+
+
+                                    // // $(divImage).appendTo(divOutter)
+                                    // $(pSubjectName).appendTo(divOutter)
+
+                                    // $(divOutter).appendTo("#search-suggestion")
+
+                                    searchSuggestElement = []
+                                }
+
+                                // $(heroNameH1).html(heroes[i]["heroName"])
+
+                                // $('#SUCCESS-login').css('display', 'unset')
+                                // location.reload();
+                            }
+                        }
+                    })
+                } else if (searchSuggest == sugInput && searchSuggestElement != null) {
+                    // console.log(searchSuggestElement)
+                    if (searchResultCount === 0) {
+                        $('#search-suggestion > h4').html("Not Found")
+                    } else {
+                        $('#search-suggestion > h4').html("Search results (" + searchResultCount + ")")
+                    }
+
+                    skeletonItems.removeClass("d-inline-flex")
+                    for (var i in searchSuggestElement) {
+                        document.getElementById("search-suggestion").appendChild(searchSuggestElement[i]);
+                    }
+
+
+                    // searchSuggestElement.appendTo("#search-suggestion")
+                } else {
+
+                    $('#search-suggestion > h4').html("Type something. . .")
+                    skeletonItems.removeClass("d-inline-flex")
+                }
+
+
+            })
+        } else {
+
+            $('#search-suggestion > h4').html("Type something. . .")
+            skeletonItems.removeClass("d-inline-flex")
+        }
+
+
+
+        console.log("2222222222222")
+
+        // skeletonItems.css({ display: "inline-flex" })
+
+    })
+
+
+    // $('#search-box form input').keyup((e) => {
+    //     let skeletonItems = $('#search-box #search-suggestion .skeleton-item')        
+
+    //     // $.debounce( 1000, () => {
+    //     //     let sugInput = $('#search-box form input').val().trim()
+    //     //     if (sugInput.length !== 0) {
+    //     //         console.log(sugInput)
+    //     //         skeletonItems.css({ display: "none" })
+    //     //     }
+    //     // })
+    //     console.log("22222");
+    //     debounce(() => {
+    //         let sugInput = $('#search-box form input').val().trim()
+    //         if (sugInput.length !== 0) {
+    //             console.log(sugInput)
+    //             console.log("4444444444")
+    //             skeletonItems.css({ display: "none" })
+    //         }
+    //     }, 250 )
+    // })
+
 });
 

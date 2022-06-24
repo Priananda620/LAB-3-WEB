@@ -30,6 +30,7 @@ if(empty($email) || empty($password) || $connect->connect_error){
             $userData['phone'] = $iterate['phone'];
             $userData['user_image'] = $iterate['user_image'];
             $userData['hashPass'] = $iterate['hashed_password'];
+            $userData['address'] = $iterate['address'];
         }
 
         if(password_verify($password, $userData['hashPass'])){
@@ -69,11 +70,11 @@ if(empty($email) || empty($password) || $connect->connect_error){
 
         } else {
             if(isset($_COOKIE["user_login"])) {
-                setcookie ("user_login","");
+                setcookie ("user_login","", time() + (86400 * 30), "/");
             }
         }
        
-        echo json_encode(array('success' => true, 'remember' => isset($_POST['remember']), 'account_data' => array('username' => $userData['username'], 'userID' => $userData['userID'], 'user_phone' => $userData['phone'], 'user_email' => $userData['email'], 'user_image' => $userData['user_image']), 'authenticated' => true));
+        echo json_encode(array('success' => true, 'remember' => isset($_POST['remember']), 'account_data' => array('username' => $userData['username'], 'userID' => $userData['userID'], 'user_phone' => $userData['phone'], 'user_email' => $userData['email'], 'user_image' => $userData['user_image'], 'user_address' => $userData['address']), 'authenticated' => true));
     }
     
 }
